@@ -3,11 +3,38 @@
 
 # Ignore Gradle build output directory
 build
+
+# Ignore Maven build output directory
+target/
+
+# Ignore Maven wrapper
+.mvn/
+mvnw
+mvnw.cmd
+
+# Ignore compiled class files
+*.class
+
+# Ignore packaged files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Ignore log files
+*.log
+
+# Ignore IDE specific files
 /.claude
 /.idea
 /app/bin
+
 # Environment variables
 .env
+
 # IDEA code analysis
 qodana.yaml
 
