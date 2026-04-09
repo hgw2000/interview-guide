@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.regex.Pattern;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -34,7 +33,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @Service
 public class KnowledgeBaseQueryService {
     private static final String NO_RESULT_RESPONSE = "抱歉，在选定的知识库中未检索到相关信息。请换一个更具体的关键词或补充上下文后再试。";
-    private static final Pattern SHORT_TOKEN_PATTERN = Pattern.compile("^[\\p{L}\\p{N}_-]{2,20}$");
     private static final int STREAM_PROBE_CHARS = 120;
 
     private final ChatClient chatClient;
@@ -336,8 +334,8 @@ public class KnowledgeBaseQueryService {
         if (question == null) {
             return false;
         }
-        String compact = question.trim();
-        return SHORT_TOKEN_PATTERN.matcher(compact).matches();
+        int compactLength = question.replaceAll("\\s+", "").length();
+        return compactLength <= shortQueryLength;
     }
 
     private String normalizeAnswer(String answer) {
